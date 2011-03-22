@@ -4,7 +4,10 @@
 #                importation and graphing in excel easier.
 #
 #
-# 29119124 - Changed date so that if it's only 2 digits (<100) we add 2000 to it
+# 20110322 - Still fighting through the exclusions/inclusions on disk data
+#            Specifically changed so that anything that includes ".t" is excluded (as opposed to .t[0-9])
+#            as well as removing ohci and md devices
+# 20110124 - Changed date so that if it's only 2 digits (<100) we add 2000 to it
 #            Thanks to Solaris 8!
 # 20110120 - Renamed to crunchsar to make globing easier
 # 20110119 - Changed to gather hostname, kernel release, architecture, and date from the first line
@@ -174,7 +177,7 @@ foreach $input (@ARGV) {
 	                                         ($device, $busy, $avque, $ios, $blocks, $avwait, $avserv) = split /\s+/,$line; 
 	                                      }
 	                                      # And this will exclude statistics about slices and mpxio paths
-	                                      if (! (($device =~ /\,/) || ($device =~ /\.t[0-9]/))) {
+	                                      if (! (($device =~ /\,/) || ($device =~ /\.t/) || ($device =~/^md/) || ($device =~/^ohci/))) {
 	                                         $disk_busy{$device}{"$time"} = $busy;
 	                                         $disk_avque{$device}{"$time"} = $avque;
 	                                         $disk_ios{$device}{"$time"} = $ios;

@@ -1,0 +1,6 @@
+Crunchsar is a perl script that takes the output from "sar -a" on a Solaris host and strips out "interesting" data into 
+.csv files, useful for working in excel.
+
+It's gone through multiple revisions and used to be called sarcrunch, but was renamed to make the use of shell globbing easier.
+
+At present it's smart enough to read the server name, dates, and times out of the file and populate the hashes appropriately.
